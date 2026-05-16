@@ -57,7 +57,7 @@ services:
     - "33061:3306"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    container_name: pma
     environment:
       - PMA_HOST=mysql
       - PMA_USER=root

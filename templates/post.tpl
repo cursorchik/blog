@@ -1,49 +1,44 @@
 {extends "layout.tpl"}
 
-{block name="title"}{$post.title}{/block}
-
 {block name="content"}
-	<div class="buttons">
-		<a href="/">На главную</a>
-	</div>
-	<article class="full-post">
-		<img src="/images/coffee.jpg" alt="Картинка">
-		<h1>{$post.title}</h1>
-		<div class="post-meta">
-			<span>📅 {$post.created_at|date_format:"%d.%m.%Y"}</span>
-			<span>👁 {$post.views} просмотров</span>
+	<div class="container my-4">
+		<div class="mb-3">
+			<a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm">← Назад</a>
 		</div>
-
-        {if $post.image}
-			<img src="{$post.image}" alt="{$post.title}" class="post-full-img">
-        {/if}
-
-		<div class="post-content">
-            {$post.content|nl2br}
-		</div>
-	</article>
-
-    {if $similar_posts|count}
-		<section class="similar-posts">
-			<h2>Похожие статьи</h2>
-			<div class="posts-grid">
-                {foreach $similar_posts as $similar}
-					<div class="post-card">
-                        {if $similar.image}
-							<img src="{$similar.image}" alt="{$similar.title}" class="post-card-img">
-                        {/if}
-						<div class="post-card-content">
-							<h3><a href="/post/{$similar.id}">{$similar.title}</a></h3>
-							<div class="post-meta">
-								<span>{$similar.created_at|date_format:"%d.%m.%Y"}</span>
-								<span>👁 {$similar.views}</span>
-							</div>
-							<p>{$similar.description|truncate:120:"..."}</p>
-							<a href="/post/{$similar.id}" class="read-more">Читать →</a>
-						</div>
-					</div>
-                {/foreach}
+		<article class="mb-5">
+			<h1 class="mb-3">{$post.title}</h1>
+			<div class="text-muted mb-4">
+				📅 {$post.created_at|date_format:"%d.%m.%Y"} | 👁 {$post.views} просмотров
 			</div>
-		</section>
-    {/if}
+			<img src="/images/coffee.jpg" class="img-fluid rounded mb-4" alt="Изображение статьи">
+			<div class="post-content">
+                {$post.content|nl2br}
+			</div>
+		</article>
+
+        {if $similar_posts|count}
+			<section>
+				<h3 class="mb-3">Похожие статьи</h3>
+				<div class="row row-cols-1 row-cols-md-3 g-4">
+                    {foreach $similar_posts as $similar}
+						<div class="col">
+							<div class="card h-100">
+								<img src="/images/coffee.jpg" class="card-img-top" alt="...">
+								<div class="card-body">
+									<h5 class="card-title">
+										<a href="/post/{$similar.id}" class="text-decoration-none">{$similar.title}</a>
+									</h5>
+									<p class="card-text text-muted small">
+                                        {$similar.created_at|date_format:"%d.%m.%Y"} | 👁 {$similar.views}
+									</p>
+									<p>{$similar.description|truncate:120:"..."}</p>
+									<a href="/post/{$similar.id}" class="btn btn-sm btn-primary">Читать</a>
+								</div>
+							</div>
+						</div>
+                    {/foreach}
+				</div>
+			</section>
+        {/if}
+	</div>
 {/block}

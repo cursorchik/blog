@@ -55,6 +55,7 @@ services:
       - "MYSQL_DATABASE=blog"
     ports:
     - "33061:3306"
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
@@ -66,13 +67,13 @@ services:
     restart: always
     ports:
       - "8081:80"
+
   node:
     image: node:20-alpine
-    ports:
-        - "5173:5173"
     volumes:
-    - ./:/var/www
+      - ./:/var/www
     working_dir: /var/www
+    command: sh -c "npm install -g sass && sass --watch public/scss:public/css"
     tty: true
 
 volumes:

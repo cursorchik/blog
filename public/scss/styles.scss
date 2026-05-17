@@ -4,3 +4,42 @@ body, html {
 	margin: 0;
 	padding: 0;
 }
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+body {
+	display: grid;
+	grid-template-rows: 60px auto 120px;
+
+	$_padding: 0 60px;
+
+	> header {
+		padding: $_padding;
+		background-color: #2b5364;
+	}
+
+	> main {
+		padding: $_padding;
+		> section {
+			&.category-section {
+				> div.recent-posts {
+					> ul.post-list {
+						list-style: none;
+						display: flex; gap: 36px;
+						> li {
+
+						}
+					}
+				}
+			}
+		}
+	}
+
+	> footer {
+		background-color: #2b5364;
+		padding: $_padding;
+	}
+}

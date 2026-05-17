@@ -9,15 +9,15 @@
 </head>
 <body>
 <header>
-    {block name="header"}Шапка сайта{/block}
+    {block name="header"}{/block}
 </header>
 
 <main>
-    {block name="content"}Основное содержание{/block}
+    {block name="content"}{/block}
 </main>
 
 <footer>
-    {block name="footer"}Подвал{/block}
+    {block name="footer"}{/block}
 </footer>
 
 {block name="scripts"}{/block}

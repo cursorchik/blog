@@ -14,8 +14,6 @@ abstract class BaseController
 	{
 		$this->db = require __DIR__ . '/../../database/config.php';
 
-		dd($this->db->getDebugLog());
-
 		$this->smarty = new Smarty();
 		$this->smarty->setTemplateDir(__DIR__ . '/../../templates');
 		$this->smarty->setConfigDir(__DIR__ . '/../../configs');

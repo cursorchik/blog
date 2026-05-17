@@ -20,8 +20,6 @@ class Route
 
 	protected static function addRoute(string $method, string $route, array $callback): void
 	{
-		// Преобразуем параметрические маршруты в регулярное выражение
-		// Например, /post/{id} -> /post/(?P<id>[^/]+)
 		$pattern = preg_replace('/\{([a-zA-Z0-9_]+)}/', '(?P<$1>[^/]+)', $route);
 		$pattern = '#^' . rtrim($pattern, '/') . '/?$#';
 
@@ -38,14 +36,13 @@ class Route
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = rtrim($uri, '/') ?: '/';
 
-		if (!isset(self::$routes[$method])) { self::notFound(); return; }
+		if (!isset(self::$routes[$method])) NotFount();
 
 		foreach (self::$routes[$method] as $pattern => $routeInfo)
 		{
 			if (preg_match($pattern, $uri, $matches))
 			{
 				$params = array_filter($matches, fn($key) => !is_numeric($key), ARRAY_FILTER_USE_KEY);
-
 				$controllerClass = $routeInfo['controller'];
 				$methodName = $routeInfo['method'];
 
@@ -54,22 +51,13 @@ class Route
 					$controller = new $controllerClass();
 					if (method_exists($controller, $methodName))
 					{
-						call_user_func_array([$controller, $methodName], $params);
+						call_user_func_array([$controller, $methodName], [$params]);
 						return;
 					}
 				}
 				break;
 			}
 		}
-
-		self::notFound();
-	}
-
-	#[NoReturn]
-	protected static function notFound() : void
-	{
-		http_response_code(404);
-		echo "404 - Page not found";
-		exit;
+		NotFount();
 	}
 }

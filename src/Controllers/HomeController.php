@@ -2,10 +2,19 @@
 
 namespace App\Controllers;
 
+use App\Models\CategoryModel;
+use Smarty\Exception;
+
 class HomeController extends BaseController
 {
-	public function index() : void
+	/**
+	 * @throws Exception
+	 */
+	public function index(): void
 	{
-		// загружаем категории и 3 последние статьи или самые популярные
+		$model = new CategoryModel();
+		$categories = $model->getAllWithRecentPosts();
+		$this->smarty->assign('categories', $categories);
+		$this->smarty->display('index.tpl');
 	}
 }

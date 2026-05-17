@@ -61,6 +61,6 @@ class Route
 				break;
 			}
 		}
-		\Template::pageNotFound();
+		Template::pageNotFound();
 	}
 }

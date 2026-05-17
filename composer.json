@@ -1,6 +1,7 @@
 {
 	"require": {
-		"smarty/smarty": "^5.0"
+		"smarty/smarty": "^5.0",
+		"fomadev/bridgesql": "^2.0"
 	},
 	"autoload": {
 		"psr-4": {

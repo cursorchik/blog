@@ -2,7 +2,7 @@
 
 use App\Route;
 use Smarty\Smarty;
-use App\Controller\HomeController;
+use App\Controllers\HomeController;
 
 require '../vendor/autoload.php';
 require 'functions.php';

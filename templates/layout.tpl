@@ -9,7 +9,8 @@
 </head>
 <body>
 <header>
-    {block name="header"}{/block}
+	<div class="logo"><a href="/">Blog</a></div>
+    <div>{block name="header"}{/block}</div>
 </header>
 
 <main>

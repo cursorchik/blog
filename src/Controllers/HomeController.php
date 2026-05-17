@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\CategoryModel;
+use App\Template;
 use Smarty\Exception;
 
 class HomeController extends BaseController
@@ -14,7 +15,7 @@ class HomeController extends BaseController
 	{
 		$model = new CategoryModel();
 		$categories = $model->getAllWithRecentPosts();
-		$this->smarty->assign('categories', $categories);
-		$this->smarty->display('index.tpl');
+		Template::instance()->assign('categories', $categories);
+		Template::instance()->display('index.tpl');
 	}
 }

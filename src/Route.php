@@ -2,7 +2,7 @@
 
 namespace App;
 
-use JetBrains\PhpStorm\NoReturn;
+use Smarty\Exception;
 
 class Route
 {
@@ -30,13 +30,16 @@ class Route
 		];
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public static function execute(): void
 	{
 		$method = $_SERVER['REQUEST_METHOD'];
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = rtrim($uri, '/') ?: '/';
 
-		if (!isset(self::$routes[$method])) NotFount();
+		if (!isset(self::$routes[$method])) \Template::pageNotFound();
 
 		foreach (self::$routes[$method] as $pattern => $routeInfo)
 		{
@@ -58,6 +61,6 @@ class Route
 				break;
 			}
 		}
-		NotFount();
+		\Template::pageNotFound();
 	}
 }

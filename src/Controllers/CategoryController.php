@@ -4,9 +4,14 @@ namespace App\Controllers;
 
 use App\Models\CategoryModel;
 use App\Models\PostModel;
+use App\Template;
+use Smarty\Exception;
 
 class CategoryController extends BaseController
 {
+	/**
+	 * @throws Exception
+	 */
 	public function show(array $params): void
 	{
 		$id = (int)($params['id'] ?? 0);
@@ -14,11 +19,7 @@ class CategoryController extends BaseController
 		$categoryModel = new CategoryModel();
 		$category = $categoryModel->getById($id);
 
-		if (!$category) {
-			http_response_code(404);
-			echo "404 - Категория не найдена";
-			return;
-		}
+		if (!$category) Template::pageNotFound();
 
 		$sort = StringValue('sort', 'created_at');
 		$order = StringValue('order', 'DESC');
@@ -31,12 +32,12 @@ class CategoryController extends BaseController
 		$totalPosts = $postModel->getTotalPostsByCategory($id);
 		$totalPages = ceil($totalPosts / $perPage);
 
-		$this->smarty->assign('category', $category);
-		$this->smarty->assign('posts', $posts);
-		$this->smarty->assign('current_page', $page);
-		$this->smarty->assign('total_pages', $totalPages);
-		$this->smarty->assign('sort', $sort);
-		$this->smarty->assign('order', $order);
-		$this->smarty->display('category.tpl');
+		Template::instance()->assign('category', $category);
+		Template::instance()->assign('posts', $posts);
+		Template::instance()->assign('current_page', $page);
+		Template::instance()->assign('total_pages', $totalPages);
+		Template::instance()->assign('sort', $sort);
+		Template::instance()->assign('order', $order);
+		Template::instance()->display('category.tpl');
 	}
 }

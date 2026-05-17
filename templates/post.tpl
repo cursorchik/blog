@@ -3,7 +3,11 @@
 {block name="title"}{$post.title}{/block}
 
 {block name="content"}
+	<div class="buttons">
+		<a href="/">На главную</a>
+	</div>
 	<article class="full-post">
+		<img src="/images/coffee.jpg" alt="Картинка">
 		<h1>{$post.title}</h1>
 		<div class="post-meta">
 			<span>📅 {$post.created_at|date_format:"%d.%m.%Y"}</span>

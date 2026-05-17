@@ -3,9 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\PostModel;
+use Smarty\Exception;
+use App\Template;
 
 class PostController extends BaseController
 {
+	/**
+	 * @throws Exception
+	 */
 	public function show(array $params): void
 	{
 		$id = (int)($params['id'] ?? 0);
@@ -13,13 +18,13 @@ class PostController extends BaseController
 		$postModel = new PostModel();
 		$post = $postModel->getById($id);
 
-		if (!$post) NotFount('Статья не найдена');
+		if (!$post) Template::pageNotFound();
 
 		$categoryIds = $postModel->getCategoryIdsForPost($id);
 		$similar = $postModel->getSimilarPosts($id, $categoryIds);
 
-		$this->smarty->assign('post', $post);
-		$this->smarty->assign('similar_posts', $similar);
-		$this->smarty->display('post.tpl');
+		Template::instance()->assign('post', $post);
+		Template::instance()->assign('similar_posts', $similar);
+		Template::instance()->display('post.tpl');
 	}
 }

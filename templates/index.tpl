@@ -23,7 +23,9 @@
 									<img src="/images/coffee.jpg"  width="300" height="512" alt="Картинка">
 									<a href="/post/{$post.id}">
                                         {if $post.image}
-											<img src="{$post.image}" alt="{$post.title}" class="post-thumb">
+											<div>
+												<img src="{$post.image}" alt="{$post.title}">
+											</div>
                                         {/if}
 										<div class="post-info">
 											<h4>{$post.title}</h4>

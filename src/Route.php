@@ -39,7 +39,7 @@ class Route
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = rtrim($uri, '/') ?: '/';
 
-		if (!isset(self::$routes[$method])) \Template::pageNotFound();
+		if (!isset(self::$routes[$method])) Template::pageNotFound();
 
 		foreach (self::$routes[$method] as $pattern => $routeInfo)
 		{
